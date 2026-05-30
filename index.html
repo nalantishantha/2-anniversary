@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>For Arani 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Nanum+Myeongjo:wght@400;700&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --entry-bg: #0d0d14;
+    --entry-accent: #c8a7e4;
+    --apology-bg: #1a1228;
+    --apology-accent: #e8c4b8;
+    --wish-bg: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 30%, #ffd6e0 60%, #ffe4cc 100%);
+    --promise-bg: linear-gradient(145deg, #fff0f3 0%, #fde8f0 50%, #f9d9e9 100%);
+    --picnic-bg: linear-gradient(145deg, #e8f5e9 0%, #f1f8e9 40%, #e0f4ff 100%);
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Nanum Myeongjo', serif;
+    --font-ui: 'Quicksand', sans-serif;
+    --transition-duration: 900ms;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── SPA SHELL ─────────────────────────────────────────── */
+  #app {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  section {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 28px 22px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-duration) ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  section.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  section::-webkit-scrollbar { display: none; }
+  section { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ══════════════════════════════════════════════════════════
+     1. ENTRY PAGE
+  ══════════════════════════════════════════════════════════ */
+  #page-entry {
+    background: var(--entry-bg);
+    background-image:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,167,228,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 80% 100%, rgba(232,196,184,0.08) 0%, transparent 70%);
+  }
+
+  .entry-stars {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 3s) ease-in-out infinite var(--del, 0s);
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: var(--op, 0.8); transform: scale(1.5); }
+  }
+
+  .entry-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(200,167,228,0.5);
+    margin-bottom: 36px;
+    animation: fadeSlideDown 2s ease 0.5s both;
+  }
+
+  .entry-title {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 12vw, 64px);
+    font-weight: 300;
+    font-style: italic;
+    color: #f0e8f8;
+    text-align: center;
+    line-height: 1.2;
+    animation: fadeSlideDown 2s ease 0.8s both;
+    margin-bottom: 60px;
+  }
+  .entry-title span { color: var(--entry-accent); }
+
+  .btn-entry {
+    position: relative;
+    background: transparent;
+    border: 1px solid rgba(200,167,228,0.4);
+    color: var(--entry-accent);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    animation: fadeSlideDown 2s ease 1.2s both, pulse-glow 3s ease-in-out infinite 2s;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  .btn-entry::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50px;
+    background: radial-gradient(circle, rgba(200,167,228,0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-entry:hover::before, .btn-entry:active::before { opacity: 1; }
+  .btn-entry:active { transform: scale(0.97); }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,167,228,0); border-color: rgba(200,167,228,0.4); }
+    50% { box-shadow: 0 0 20px 4px rgba(200,167,228,0.25); border-color: rgba(200,167,228,0.9); }
+  }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     2. APOLOGY PAGE
+  ══════════════════════════════════════════════════════════ */
+  #page-apology {
+    background: var(--apology-bg);
+    background-image:
+      radial-gradient(ellipse 70% 50% at 30% 20%, rgba(232,196,184,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 80%, rgba(200,167,228,0.08) 0%, transparent 60%);
+    /* needs relative so the floating reject btn can escape to fixed coords */
+    position: absolute;
+  }
+
+  .apology-deco {
+    font-size: 36px;
+    margin-bottom: 16px;
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+
+  .apology-heading {
+    font-family: var(--font-display);
+    font-size: clamp(13px, 3.8vw, 18px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(232,196,184,0.5);
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+    text-align: center;
+  }
+
+  /* scrollable letter card */
+  .apology-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(232,196,184,0.15);
+    border-radius: 20px;
+    padding: 26px 24px;
+    max-width: 520px;
+    width: 100%;
+    margin-bottom: 44px;
+    backdrop-filter: blur(6px);
+  }
+
+  .apology-text {
+    font-family: var(--font-display);
+    font-size: clamp(15px, 4.2vw, 20px);
+    font-weight: 400;
+    color: #f0e4dc;
+    text-align: left;
+    line-height: 2;
+  }
+  .apology-text p { margin-bottom: 16px; }
+  .apology-text p:last-child { margin-bottom: 0; }
+  .apology-text em { font-style: italic; color: var(--apology-accent); }
+
+  .apology-btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    min-height: 56px;
+  }
+
+  .btn-accept {
+    background: linear-gradient(135deg, rgba(232,196,184,0.25), rgba(200,167,228,0.2));
+    border: 1px solid rgba(232,196,184,0.6);
+    color: #f0e4dc;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 36px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-accept:hover {
+    background: linear-gradient(135deg, rgba(232,196,184,0.4), rgba(200,167,228,0.3));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(232,196,184,0.2);
+  }
+
+  /* The reject button floats FIXED over the whole page */
+  .btn-reject {
+    position: fixed;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.28);
+    font-family: var(--font-ui);
+    font-size: 13px;
+    padding: 12px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: left 0.18s cubic-bezier(0.34,1.56,0.64,1), top 0.18s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+    z-index: 50;
+    pointer-events: none; /* enabled by JS when apology page is active */
+    /* initial placement — JS will override immediately */
+    left: calc(50% + 100px);
+    top: calc(50% + 40px);
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     3. ANNIVERSARY WISH PAGE
+  ══════════════════════════════════════════════════════════ */
+  #page-wish {
+    background: var(--wish-bg);
+    min-height: 100%;
+  }
+
+  .petals-canvas {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    font-size: 14px;
+    animation: petalFall linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes petalFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  .wish-header-tag {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(180,80,100,0.6);
+    margin-bottom: 16px;
+  }
+
+  .wish-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 9vw, 52px);
+    font-weight: 400;
+    font-style: italic;
+    color: #b5344e;
+    text-align: center;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  .wish-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e88da0, transparent);
+    margin: 0 auto 36px;
+  }
+
+  .wish-body {
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .wish-para {
+    font-family: var(--font-display);
+    font-size: clamp(15px, 4.2vw, 19px);
+    font-weight: 400;
+    color: #6b2d3e;
+    line-height: 1.95;
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .wish-signature {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(18px, 5vw, 24px);
+    color: #b5344e;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 48px;
+  }
+
+  .btn-next {
+    background: linear-gradient(135deg, #e88da0, #d4607a);
+    border: none;
+    color: white;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 16px 44px;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(212,96,122,0.35);
+    display: block;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-next:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(212,96,122,0.45); }
+  .btn-next:active { transform: translateY(-1px); }
+
+  /* ══════════════════════════════════════════════════════════
+     4. PROMISE PAGE
+  ══════════════════════════════════════════════════════════ */
+  #page-promise {
+    background: var(--promise-bg);
+  }
+
+  .promise-rings {
+    font-size: 48px;
+    margin-bottom: 28px;
+    animation: gentleFloat 3.5s ease-in-out infinite;
+  }
+
+  .promise-heading {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(160,60,80,0.5);
+    margin-bottom: 28px;
+  }
+
+  .promise-text {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 5.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: #8c2d42;
+    text-align: center;
+    line-height: 1.9;
+    max-width: 520px;
+    margin-bottom: 52px;
+  }
+
+  /* promise button area — needs height room for dodging button */
+  .promise-btns-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .btn-promise-yes {
+    background: linear-gradient(135deg, #e88da0, #d4607a);
+    border: none;
+    color: white;
+    font-family: var(--font-ui);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(212,96,122,0.3);
+    letter-spacing: 0.3px;
+    width: 100%;
+  }
+  .btn-promise-yes:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(212,96,122,0.4); }
+
+  /* "I need some time" — FIXED floater on promise page */
+  .btn-promise-time {
+    position: fixed;
+    background: rgba(212,96,122,0.08);
+    border: 1px solid rgba(212,96,122,0.3);
+    color: #c05570;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 13px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: left 0.2s cubic-bezier(0.34,1.56,0.64,1), top 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+    z-index: 50;
+    pointer-events: none;
+    /* initial placement below yes button — JS will position properly */
+    left: calc(50% - 80px);
+    top: calc(50% + 80px);
+  }
+  .btn-promise-time.unlocked {
+    background: linear-gradient(135deg, rgba(212,96,122,0.2), rgba(180,80,100,0.15));
+    border-color: rgba(212,96,122,0.7);
+    color: #b5344e;
+    box-shadow: 0 0 16px rgba(212,96,122,0.3);
+    animation: softPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes softPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(212,96,122,0.2); }
+    50% { box-shadow: 0 0 22px rgba(212,96,122,0.45); }
+  }
+
+  /* small dodge-counter hint */
+  .time-hint {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: rgba(180,60,80,0.4);
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: -6px;
+    height: 16px;
+    transition: opacity 0.4s;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     5. PICNIC PAGE
+  ══════════════════════════════════════════════════════════ */
+  #page-picnic {
+    background: var(--picnic-bg);
+  }
+
+  .picnic-icon {
+    font-size: 52px;
+    margin-bottom: 20px;
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+
+  .picnic-heading {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(60,120,80,0.5);
+    margin-bottom: 20px;
+  }
+
+  .picnic-text {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 6vw, 30px);
+    font-weight: 400;
+    font-style: italic;
+    color: #2e6e4a;
+    text-align: center;
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 44px;
+  }
+
+  .picnic-options {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .btn-thursday {
+    background: linear-gradient(135deg, #6bba8a, #3d9268);
+    border: none;
+    color: white;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 16px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(61,146,104,0.3);
+    letter-spacing: 0.3px;
+  }
+  .btn-thursday:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(61,146,104,0.4); }
+
+  .btn-pick-day {
+    background: rgba(61,146,104,0.08);
+    border: 1px solid rgba(61,146,104,0.35);
+    color: #3d7a5a;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .btn-pick-day:hover { background: rgba(61,146,104,0.14); }
+
+  .custom-form {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+    animation: fadeSlideUp 0.5s ease;
+  }
+  .custom-form.visible { display: flex; }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(46,110,74,0.6);
+  }
+  .form-group input {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(61,146,104,0.25);
+    border-radius: 12px;
+    padding: 13px 16px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    color: #2e6e4a;
+    outline: none;
+    transition: border-color 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .form-group input:focus {
+    border-color: rgba(61,146,104,0.6);
+    box-shadow: 0 0 0 3px rgba(61,146,104,0.1);
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, #e88da0, #d4607a);
+    border: none;
+    color: white;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 16px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(212,96,122,0.3);
+    display: none;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 8px;
+    letter-spacing: 0.3px;
+  }
+  .btn-submit.visible { display: block; }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(212,96,122,0.4); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* ─── SUCCESS SCREEN ─────────────────────────────────────── */
+  .success-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeSlideUp 0.8s ease;
+  }
+  .success-screen.visible { display: flex; }
+
+  .success-icon { font-size: 60px; margin-bottom: 24px; animation: heartBeat 1.5s ease infinite; }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.1); }
+    70% { transform: scale(1); }
+  }
+
+  .success-title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 7vw, 36px);
+    font-style: italic;
+    color: #2e6e4a;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .success-sub {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    color: rgba(46,110,74,0.6);
+    letter-spacing: 1px;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SHARED UTILITIES
+  ══════════════════════════════════════════════════════════ */
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0px) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+  }
+
+  .audio-hint {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    font-size: 20px;
+    opacity: 0.3;
+    cursor: pointer;
+    z-index: 999;
+    transition: opacity 0.3s;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .audio-hint:hover { opacity: 0.7; }
+
+  .form-error {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: #c05570;
+    text-align: center;
+    display: none;
+    margin-top: 8px;
+  }
+  .form-error.visible { display: block; }
+
+  @media (max-width: 480px) {
+    section { padding: 32px 20px 50px; }
+  }
+</style>
+</head>
+<body>
+
+<audio id="bg-music" loop preload="auto">
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg" />
+</audio>
+
+<button class="audio-hint" id="mute-btn" title="Toggle music" aria-label="Toggle music">🎵</button>
+
+<!-- Floating dodge buttons — rendered outside sections so they escape overflow clipping -->
+<button class="btn-reject" id="btn-reject">I Reject</button>
+<button class="btn-promise-time" id="btn-promise-time">I need some time</button>
+
+<div id="app">
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE 1: ENTRY
+  ═══════════════════════════════════════════════════════ -->
+  <section id="page-entry" class="active" role="main" aria-label="Entry Page">
+    <div class="entry-stars" id="stars-container" aria-hidden="true"></div>
+    <div class="entry-label">two years of us</div>
+    <h1 class="entry-title">
+      A message<br/>for my<br/><span>Chutyy</span>
+    </h1>
+    <button class="btn-entry" id="btn-start" aria-label="Open your message">
+      Tap to open your message, Chutyy
+    </button>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE 2: APOLOGY
+  ═══════════════════════════════════════════════════════ -->
+  <section id="page-apology" aria-label="Apology Page">
+    <div class="apology-deco" aria-hidden="true">🌙</div>
+    <p class="apology-heading">May 2026 — From Nalan</p>
+
+    <div class="apology-card">
+      <div class="apology-text">
+        <p>My Chutyy ❤️,</p>
+        <p>I know I've been upset and distant since April 12, and I'm really sorry for that. 🥺</p>
+        <p>I know I've made mistakes, hurt your feelings, and probably made things harder than they needed to be. For all of that, I sincerely apologize. 💔</p>
+        <p>You have always tried to explain things to me, and I know I haven't always listened the way I should have. From now on, I want to understand you better, listen to you more, and work on the things that bother you. ❤️</p>
+        <p>I don't want my ego, anger, or mistakes to create distance between us. You mean too much to me. 🥹</p>
+        <p>I'm not asking you to forget everything immediately, but I'm asking for a chance to make things right. 🙏❤️</p>
+        <p>I love you so much, Chutyy. No matter how many arguments we have, you are still the person I want beside me. 🌹❤️</p>
+        <p>I'm sorry. ❤️🥺</p>
+      </div>
+    </div>
+
+    <div class="apology-btns" id="apology-btns">
+      <button class="btn-accept" id="btn-accept">I Accept ❤️</button>
+      <!-- btn-reject is rendered OUTSIDE the section for free floating -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE 3: ANNIVERSARY WISH
+  ═══════════════════════════════════════════════════════ -->
+  <section id="page-wish" aria-label="Anniversary Wish">
+    <div class="petals-canvas" id="petals" aria-hidden="true"></div>
+
+    <div class="wish-body">
+      <p class="wish-header-tag">2nd anniversary ✨</p>
+      <h2 class="wish-title">Happy 2 Years,<br/>my Chutyy ❤️🥹</h2>
+      <div class="wish-divider" aria-hidden="true"></div>
+
+      <p class="wish-para">Two years ago, I never imagined that the girl I met at Galigamuwa Central College during a Sasnaka seminar would become the most special person in my life. 🌸✨</p>
+      <p class="wish-para">We started as friends, became best friends, and then started the most beautiful chapter of our lives together. 💕🥰</p>
+      <p class="wish-para">We laughed together 😂❤️, cried together 🥹🤗, shared our happiness and sadness 💖, ate together (sometimes a little too much 😏🍔🍕😂), and created so many beautiful memories. Every memory with you is precious to me. 🌹✨</p>
+      <p class="wish-para">Our journey wasn't always perfect. 😅❤️ We argued, got upset with each other, stayed angry sometimes 😤🥺, and made each other cry too. But no matter what happened, my heart always found its way back to you. 💕 Every difficult moment made us stronger. 🫂❤️</p>
+      <p class="wish-para">Thank you for always being there for me, supporting me, and loving me even when I'm not perfect. 🥹💖</p>
+      <p class="wish-para">These two years were amazing, but I know this is only the beginning. There are still so many places to visit 🌍, dreams to achieve 🌟, memories to create 📸, and love to share 💞.</p>
+      <p class="wish-para">I want to share my life with you, Chutyy. ❤️ I want you beside me when I succeed 🏆, when I fail 😔, when I laugh 😂, and when I need someone to hold my hand 🫶.</p>
+      <p class="wish-para">So, my Chutyy ❤️, stay with me through every smile 😊, every challenge 💪, every adventure 🚗, every silly argument 😅, and every beautiful moment waiting for us. 📖💕</p>
+      <p class="wish-para">I know we still have a lot more to do together, and I can't wait to see what the future holds for us. 🌹✨</p>
+      <p class="wish-para">I love you more than words can explain, Arani. ❤️🥹🌹</p>
+      <p class="wish-para" style="font-weight:500; color:#b5344e;">Happy 2 Years of Us, Chutyy! 🥂💕✨</p>
+      <p class="wish-signature">Forever yours, Nalan ❤️😘</p>
+
+      <button class="btn-next" id="btn-to-promise">What comes next for us? →</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE 4: PROMISE
+  ═══════════════════════════════════════════════════════ -->
+  <section id="page-promise" aria-label="Promise Page">
+    <div class="promise-rings" aria-hidden="true">💍</div>
+    <p class="promise-heading">A Question From My Heart</p>
+    <p class="promise-text">
+      I want our future to be brighter than our past.<br/>
+      I want to solve our problems together, side by side.<br/>
+      I want to be with you forever.<br/><br/>
+      Do you promise to stay with me?
+    </p>
+    <div class="promise-btns-wrap">
+      <button class="btn-promise-yes" id="btn-promise-yes">I promise ❤️</button>
+      <p class="time-hint" id="time-hint"></p>
+      <!-- btn-promise-time is rendered OUTSIDE the section for free floating -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAGE 5: PICNIC INVITATION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="page-picnic" aria-label="Picnic Invitation">
+    <div id="picnic-main" style="display:flex; flex-direction:column; align-items:center; width:100%; max-width:380px;">
+      <div class="picnic-icon" aria-hidden="true">🧺</div>
+      <p class="picnic-heading">Anniversary Picnic</p>
+      <p class="picnic-text">Can I take you on an anniversary picnic to celebrate us?</p>
+
+      <div class="picnic-options" id="picnic-options">
+        <button class="btn-thursday" id="btn-thursday">Yes, Thursday is perfect! 🧺</button>
+        <button class="btn-pick-day" id="btn-pick-day">I can't do Thursday, let me pick a day</button>
+      </div>
+
+      <div class="custom-form" id="custom-form">
+        <div class="form-group">
+          <label for="input-date">Pick a Date</label>
+          <input type="date" id="input-date" min="" />
+        </div>
+        <div class="form-group">
+          <label for="input-time">Best Time</label>
+          <input type="time" id="input-time" />
+        </div>
+        <div class="form-group">
+          <label for="input-location">Preferred Location</label>
+          <input type="text" id="input-location" placeholder="e.g., Peradeniya Botanical Garden" />
+        </div>
+      </div>
+
+      <button class="btn-submit" id="btn-submit">Send my answer to Nalan 💌</button>
+      <p class="form-error" id="form-error">Please fill in date, time and location 🥺</p>
+    </div>
+
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon" aria-hidden="true">💌</div>
+      <h2 class="success-title">Your message has been<br/>sent to his heart.</h2>
+      <p class="success-sub" style="margin-bottom:16px; font-size:18px;">See you soon, Chutyy. ❤️</p>
+      <p class="success-sub">— Nalan is waiting for you 🌹</p>
+    </div>
+  </section>
+
+</div><!-- #app -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════════ */
+let userChoices = {
+  promise: '',
+  picnicDate: '',
+  picnicTime: '',
+  picnicLocation: ''
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   AUDIO
+═══════════════════════════════════════════════════════════════ */
+const music = document.getElementById('bg-music');
+const muteBtn = document.getElementById('mute-btn');
+let muted = false;
+muteBtn.addEventListener('click', () => {
+  muted = !muted;
+  music.muted = muted;
+  muteBtn.textContent = muted ? '🔇' : '🎵';
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE NAVIGATION
+═══════════════════════════════════════════════════════════════ */
+let currentPage = 'page-entry';
+
+function navigateTo(pageId) {
+  const cur = document.getElementById(currentPage);
+  const nxt = document.getElementById(pageId);
+  if (!nxt || pageId === currentPage) return;
+
+  cur.classList.remove('active');
+  currentPage = pageId;
+
+  // Manage floating button visibility per page
+  syncFloatingButtons(pageId);
+
+  setTimeout(() => {
+    nxt.classList.add('active');
+    nxt.scrollTop = 0;
+  }, 80);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FLOATING BUTTON VISIBILITY MANAGER
+═══════════════════════════════════════════════════════════════ */
+const btnReject      = document.getElementById('btn-reject');
+const btnPromiseTime = document.getElementById('btn-promise-time');
+
+function syncFloatingButtons(pageId) {
+  // Reject button: only visible + interactive on apology page
+  if (pageId === 'page-apology') {
+    btnReject.style.pointerEvents = 'auto';
+    btnReject.style.opacity = '1';
+    placeRejectInitial();
+  } else {
+    btnReject.style.pointerEvents = 'none';
+    btnReject.style.opacity = '0';
+  }
+
+  // Promise-time button: only visible + interactive on promise page
+  if (pageId === 'page-promise') {
+    btnPromiseTime.style.pointerEvents = 'auto';
+    btnPromiseTime.style.opacity = '1';
+    placePromiseTimeInitial();
+  } else {
+    btnPromiseTime.style.pointerEvents = 'none';
+    btnPromiseTime.style.opacity = '0';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 1 — ENTRY
+═══════════════════════════════════════════════════════════════ */
+(function createStars() {
+  const c = document.getElementById('stars-container');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.classList.add('star');
+    s.style.cssText = `
+      left:${Math.random()*100}%;top:${Math.random()*100}%;
+      --d:${2+Math.random()*4}s;--del:${Math.random()*5}s;
+      --op:${0.4+Math.random()*0.6};
+      width:${1+Math.random()*2}px;height:${1+Math.random()*2}px;
+    `;
+    c.appendChild(s);
+  }
+})();
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  music.play().catch(() => {});
+  navigateTo('page-apology');
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 2 — APOLOGY — freely floating reject button
+═══════════════════════════════════════════════════════════════ */
+
+function getRandomPos(btnW, btnH) {
+  const margin = 16;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  return {
+    x: margin + Math.random() * (vw - btnW - margin * 2),
+    y: margin + Math.random() * (vh - btnH - margin * 2)
+  };
+}
+
+function placeRejectInitial() {
+  // Start it at a safe spot — bottom-right-ish area
+  const r = btnReject.getBoundingClientRect();
+  btnReject.style.left = (window.innerWidth * 0.65) + 'px';
+  btnReject.style.top  = (window.innerHeight * 0.75) + 'px';
+}
+
+let rejectLastX = -999, rejectLastY = -999;
+
+function dodgeReject() {
+  const w = btnReject.offsetWidth  || 100;
+  const h = btnReject.offsetHeight || 44;
+  let pos, attempts = 0;
+  do {
+    pos = getRandomPos(w, h);
+    attempts++;
+  } while (
+    (Math.abs(pos.x - rejectLastX) < 80 || Math.abs(pos.y - rejectLastY) < 50)
+    && attempts < 15
+  );
+  rejectLastX = pos.x;
+  rejectLastY = pos.y;
+  btnReject.style.left = pos.x + 'px';
+  btnReject.style.top  = pos.y + 'px';
+}
+
+btnReject.addEventListener('mouseover', dodgeReject);
+btnReject.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  dodgeReject();
+}, { passive: false });
+btnReject.addEventListener('click', (e) => e.preventDefault());
+
+document.getElementById('btn-accept').addEventListener('click', () => {
+  navigateTo('page-wish');
+  launchPetals();
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 3 — WISH — floating petals
+═══════════════════════════════════════════════════════════════ */
+function launchPetals() {
+  const container = document.getElementById('petals');
+  if (container.dataset.launched) return;
+  container.dataset.launched = 'true';
+  const symbols = ['🌸','🌹','💕','✨','🌺','💖','🌷'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.classList.add('petal');
+    p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      font-size:${10+Math.random()*12}px;
+      animation-duration:${6+Math.random()*10}s;
+      animation-delay:${Math.random()*12}s;
+    `;
+    container.appendChild(p);
+  }
+}
+
+document.getElementById('btn-to-promise').addEventListener('click', () => {
+  navigateTo('page-promise');
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 4 — PROMISE
+   "I need some time" dodges 3 times, then unlocks and submits
+═══════════════════════════════════════════════════════════════ */
+const timeHint = document.getElementById('time-hint');
+let timeDodgeCount = 0;
+const TIME_DODGE_MAX = 3;
+let timeUnlocked = false;
+let ptLastX = -999, ptLastY = -999;
+
+function placePromiseTimeInitial() {
+  // Just below the yes button approx
+  btnPromiseTime.style.left = (window.innerWidth  * 0.5 - 80) + 'px';
+  btnPromiseTime.style.top  = (window.innerHeight * 0.5 + 90) + 'px';
+  timeDodgeCount = 0;
+  timeUnlocked = false;
+  btnPromiseTime.classList.remove('unlocked');
+  timeHint.textContent = '';
+}
+
+function dodgePromiseTime() {
+  if (timeUnlocked) return; // already unlocked, let her click it
+
+  timeDodgeCount++;
+
+  const remaining = TIME_DODGE_MAX - timeDodgeCount;
+
+  if (timeDodgeCount >= TIME_DODGE_MAX) {
+    // UNLOCK — she's tried enough times
+    timeUnlocked = true;
+    btnPromiseTime.classList.add('unlocked');
+    timeHint.textContent = 'Okay… tap it whenever you\'re ready 🥺';
+    // Don't move it anymore
+    return;
+  }
+
+  // Still dodging
+  const w = btnPromiseTime.offsetWidth  || 120;
+  const h = btnPromiseTime.offsetHeight || 44;
+  let pos, attempts = 0;
+  do {
+    pos = getRandomPos(w, h);
+    attempts++;
+  } while (
+    (Math.abs(pos.x - ptLastX) < 100 || Math.abs(pos.y - ptLastY) < 60)
+    && attempts < 15
+  );
+  ptLastX = pos.x;
+  ptLastY = pos.y;
+  btnPromiseTime.style.left = pos.x + 'px';
+  btnPromiseTime.style.top  = pos.y + 'px';
+
+  const messages = [
+    'Are you sure? 🥺',
+    'One more try… 🥹',
+    'Okay, I\'ll let you decide… ❤️'
+  ];
+  timeHint.textContent = messages[timeDodgeCount - 1] || '';
+}
+
+btnPromiseTime.addEventListener('mouseover', (e) => {
+  if (!timeUnlocked) dodgePromiseTime();
+});
+btnPromiseTime.addEventListener('touchstart', (e) => {
+  if (!timeUnlocked) {
+    e.preventDefault();
+    dodgePromiseTime();
+  }
+}, { passive: false });
+
+btnPromiseTime.addEventListener('click', async () => {
+  if (!timeUnlocked) return; // safety guard
+  await submitChoiceAndContinue('I need some time');
+});
+
+document.getElementById('btn-promise-yes').addEventListener('click', () => {
+  userChoices.promise = 'I promise ❤️';
+  navigateTo('page-picnic');
+});
+
+/* Helper: submit promise choice to formspree and navigate */
+async function submitChoiceAndContinue(choice) {
+  userChoices.promise = choice;
+
+  // Show a gentle loading state on the button
+  btnPromiseTime.textContent = 'Sending… 💌';
+  btnPromiseTime.style.pointerEvents = 'none';
+
+  try {
+    await fetch('https://formspree.io/f/xgoqbvvp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        promise: userChoices.promise,
+        subject: '💕 Arani\'s Promise Answer',
+        note: 'She chose "I need some time" on the promise page.'
+      })
+    });
+  } catch (e) {
+    // continue regardless
+  }
+
+  navigateTo('page-picnic');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 5 — PICNIC
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('input-date').min = new Date().toISOString().split('T')[0];
+
+const picnicOptions = document.getElementById('picnic-options');
+const customForm    = document.getElementById('custom-form');
+const btnSubmit     = document.getElementById('btn-submit');
+const formError     = document.getElementById('form-error');
+const successScreen = document.getElementById('success-screen');
+const picnicMain    = document.getElementById('picnic-main');
+
+document.getElementById('btn-thursday').addEventListener('click', () => {
+  userChoices.picnicDate     = 'Thursday (pre-selected)';
+  userChoices.picnicTime     = 'flexible';
+  userChoices.picnicLocation = 'TBD';
+  picnicOptions.style.display = 'none';
+  customForm.classList.remove('visible');
+  btnSubmit.classList.add('visible');
+  formError.classList.remove('visible');
+});
+
+document.getElementById('btn-pick-day').addEventListener('click', () => {
+  picnicOptions.style.display = 'none';
+  customForm.classList.add('visible');
+  btnSubmit.classList.add('visible');
+  formError.classList.remove('visible');
+});
+
+document.getElementById('input-date').addEventListener('change',     e => { userChoices.picnicDate     = e.target.value; });
+document.getElementById('input-time').addEventListener('change',     e => { userChoices.picnicTime     = e.target.value; });
+document.getElementById('input-location').addEventListener('input',  e => { userChoices.picnicLocation = e.target.value; });
+
+btnSubmit.addEventListener('click', async () => {
+  if (customForm.classList.contains('visible')) {
+    const d = document.getElementById('input-date').value;
+    const t = document.getElementById('input-time').value;
+    const l = document.getElementById('input-location').value.trim();
+    userChoices.picnicDate = d; userChoices.picnicTime = t; userChoices.picnicLocation = l;
+    if (!d || !t || !l) { formError.classList.add('visible'); return; }
+  }
+  formError.classList.remove('visible');
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'Sending to his heart… 💌';
+
+  const payload = {
+    promise:          userChoices.promise,
+    picnic_date:      userChoices.picnicDate,
+    picnic_time:      userChoices.picnicTime,
+    picnic_location:  userChoices.picnicLocation,
+    subject:          '💕 Arani answered — Anniversary Picnic'
+  };
+
+  try {
+    const response = await fetch('https://formspree.io/f/xgoqbvvp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      picnicMain.style.opacity = '0';
+      picnicMain.style.transition = 'opacity 0.6s ease';
+      setTimeout(() => {
+        picnicMain.style.display = 'none';
+        successScreen.classList.add('visible');
+      }, 650);
+    } else {
+      const data = await response.json().catch(() => ({}));
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = 'Send my answer to Nalan 💌';
+      formError.textContent = data.errors?.[0]?.message || 'Something went wrong. Please try again.';
+      formError.classList.add('visible');
+    }
+  } catch (err) {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Send my answer to Nalan 💌';
+    formError.textContent = 'Network issue. Please check your connection. 🥺';
+    formError.classList.add('visible');
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT — hide floating buttons at start
+═══════════════════════════════════════════════════════════════ */
+btnReject.style.opacity      = '0';
+btnReject.style.pointerEvents = 'none';
+btnReject.style.transition   = 'opacity 0.4s ease, left 0.18s cubic-bezier(0.34,1.56,0.64,1), top 0.18s cubic-bezier(0.34,1.56,0.64,1)';
+
+btnPromiseTime.style.opacity      = '0';
+btnPromiseTime.style.pointerEvents = 'none';
+btnPromiseTime.style.transition   = 'opacity 0.4s ease, left 0.2s cubic-bezier(0.34,1.56,0.64,1), top 0.2s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease, border-color 0.3s ease, color 0.3s ease';
+
+/* ═══════════════════════════════════════════════════════════════
+   PREVENT PULL-TO-REFRESH ON MOBILE
+═══════════════════════════════════════════════════════════════ */
+document.addEventListener('touchmove', (e) => {
+  const sec = e.target.closest('section');
+  if (sec && sec.scrollHeight <= sec.clientHeight) e.preventDefault();
+}, { passive: false });
+</script>
+</body>
+</html>
