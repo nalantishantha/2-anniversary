@@ -832,11 +832,43 @@ let userChoices = {
 const music = document.getElementById('bg-music');
 const muteBtn = document.getElementById('mute-btn');
 let muted = false;
+
+function updateAudioIcon() {
+  if (music.muted || muted) {
+    muteBtn.textContent = '🔇';
+    return;
+  }
+  muteBtn.textContent = music.paused ? '▶️' : '🎵';
+}
+
+async function tryPlayMusic() {
+  try {
+    await music.play();
+  } catch (err) {
+    // Autoplay restrictions: keep icon as play hint.
+  }
+  updateAudioIcon();
+}
+
 muteBtn.addEventListener('click', () => {
+  if (music.paused) {
+    tryPlayMusic();
+    return;
+  }
   muted = !muted;
   music.muted = muted;
-  muteBtn.textContent = muted ? '🔇' : '🎵';
+  updateAudioIcon();
 });
+
+music.addEventListener('play', updateAudioIcon);
+music.addEventListener('pause', updateAudioIcon);
+
+// First user interaction should attempt playback (mobile autoplay restrictions).
+document.addEventListener('pointerdown', () => {
+  if (music.paused) tryPlayMusic();
+}, { once: true });
+
+updateAudioIcon();
 
 /* ═══════════════════════════════════════════════════════════════
    PAGE NAVIGATION
@@ -907,7 +939,7 @@ function syncFloatingButtons(pageId) {
 })();
 
 document.getElementById('btn-start').addEventListener('click', () => {
-  music.play().catch(() => {});
+  tryPlayMusic();
   navigateTo('page-apology');
 });
 
